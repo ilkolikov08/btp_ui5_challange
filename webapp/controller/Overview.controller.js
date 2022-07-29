@@ -13,7 +13,7 @@ sap.ui.define(
     "use strict";
 
     return BaseController.extend("sap.btp.ui5challange.controller.Overview", {
-      onInit: function () {
+      onInit() {
         this._initFilterBar();
       },
 
@@ -22,7 +22,7 @@ sap.ui.define(
        * populates {controller} with oFilterBar and oSearchField properties
        * @returns {sap.ui.comp.filterbar.FilterBar}
        */
-      _initFilterBar: function () {
+      _initFilterBar() {
         this.oFilterBar = this.byId("FilterBar");
         this.oBasicSearch = new SearchField("BasicSearch", {
           liveChange: this.onSearch.bind(this),
@@ -41,7 +41,7 @@ sap.ui.define(
        * If no search query given or filters set - resets the filter
        * @param {sap.ui.base.Event} oEvent
        */
-      onSearch: function (oEvent) {
+      onSearch(oEvent) {
         const sQuery = this.oFilterBar.getBasicSearchValue().trim();
         const aFiltersWithValue = this.oFilterBar._getFiltersWithValues();
         const bResetBinding =
@@ -66,18 +66,18 @@ sap.ui.define(
       /**
        * A function to register private sap.ui.comp.filterbar.FilterBar
        * method getFiltersWithValues
-       * @returns {sap.ui.comp.filterbar.getFilterGroupItem[]}
+       * @returns {sap.ui.comp.filterbar.FilterGroupItem[]}
        */
-      fGetFiltersWithValues: function () {
-        const aFilters = this.getFilterGroupItems();
+      fGetFiltersWithValues() {
+        const aFilterItems = this.getFilterGroupItems();
         const aFiltersWithValue = [];
 
-        for (let i = 0; i < aFilters.length; i++) {
-          let oControl = this.determineControlByFilterItem(aFilters[i]);
+        aFilterItems.forEach((oItem) => {
+          let oControl = this.determineControlByFilterItem(oItem);
           if (oControl && oControl.getValue && oControl.getValue()) {
-            aFiltersWithValue.push(aFilters[i]);
+            aFiltersWithValue.push(oItem);
           }
-        }
+        });
 
         return aFiltersWithValue;
       },
@@ -87,7 +87,7 @@ sap.ui.define(
        * and BasicSearchField values and triggers binding refresh
        * @param {sap.ui.base.Event} oEvent
        */
-      onClear: function (oEvent) {
+      onClear(oEvent) {
         const aFiltersWithValues = this.oFilterBar._getFiltersWithValues();
         const oTable = this.byId("OverviewTable");
         const oBinding = oTable.getBinding("items");
@@ -106,7 +106,7 @@ sap.ui.define(
        * @param {sap.ui.comp.filterbar.getFilterGroupItem} oGroupItem
        * @returns {sap.ui.model.Filter}
        */
-      getModelFilters: function (oGroupItem) {
+      getModelFilters(oGroupItem) {
         const oControl = oGroupItem.getControl();
         const sProperty = oControl.data("filterProperty");
         const sSearchValue = oControl.getSelectedKey() || oControl.getValue();
@@ -119,24 +119,24 @@ sap.ui.define(
        * loads and opens the SelectDialog fragment
        * @param {sap.ui.base.Event} oEvent
        */
-      handleValueHelp: function (oEvent) {
+      handleValueHelp(oEvent) {
         const oView = this.getView();
         const oSource = oEvent.getSource();
         this._sInputId = oSource.getId();
 
         // create value help dialog
-        if (!this._pSelectDialog) {
+        if (!this._oSelectDialog) {
           Fragment.load({
             id: oView.getId(),
             name: "sap.btp.ui5challange.view.fragments.Dialog",
             controller: this,
           }).then((oSelectDialog) => {
             oView.addDependent(oSelectDialog);
-            this._pSelectDialog = oSelectDialog;
-            this._pSelectDialog.open();
+            this._oSelectDialog = oSelectDialog;
+            this._oSelectDialog.open();
           });
         } else {
-          this._pSelectDialog.open();
+          this._oSelectDialog.open();
         }
       },
 
@@ -144,7 +144,7 @@ sap.ui.define(
        * Event handler for SelectDialog liveChange event
        * @param {sap.ui.base.Event} oEvent
        */
-      handleSelectDialogSearch: function (oEvent) {
+      handleSelectDialogSearch(oEvent) {
         const oSource = oEvent.getSource();
         const sValue = oEvent.getParameter("value");
         const oBinding = oSource.getBinding("items");
@@ -161,7 +161,7 @@ sap.ui.define(
        * sets the value of the input and resets the dialog binding
        * @param {sap.ui.base.Event} oEvent
        */
-      handleSelectDialogClose: function (oEvent) {
+      handleSelectDialogClose(oEvent) {
         const oSource = oEvent.getSource();
         const oSelectedItem = oEvent.getParameter("selectedItem");
         const oBinding = oSource.getBinding("items");
@@ -180,7 +180,7 @@ sap.ui.define(
        * @param {sap.ui.base.Event} oEvent
        * @returns
        */
-      onInputChange: function (oEvent) {
+      onInputChange(oEvent) {
         const sValue = oEvent.getParameter("value").trim();
 
         if (sValue) return;
@@ -192,7 +192,7 @@ sap.ui.define(
        * refreshes the items binding in case of cancel button is pressed
        * @param {sap.ui.base.Event} oEvent
        */
-      handleSelectDialogCancel: function (oEvent) {
+      handleSelectDialogCancel(oEvent) {
         const oSource = oEvent.getSource();
         const oBinding = oSource.getBinding("items");
 

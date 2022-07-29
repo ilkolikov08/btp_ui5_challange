@@ -6,7 +6,7 @@
     xmlns:l="sap.ui.layout"
     xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
     xmlns:core="sap.ui.core">
-    <Page id="page" title="{i18n>title}" class="sapUiResponsiveContentPadding">
+    <Page id="page" title="{i18n>title}">
         <customHeader>
             <tnt:ToolHeader id="ToolHeader">
                 <Image id="HedingLogo" src="test-resources/sap/tnt/images/SAP_Logo.png" />

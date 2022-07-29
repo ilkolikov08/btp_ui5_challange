@@ -29,3 +29,12 @@ server:
       configuration:
         component: sap.btp.ui5challange
         ui5Theme: sap_fiori_3
+builder:
+  customTasks:
+    - name: ui5-task-transpile
+      afterTask: replaceVersion
+      configuration:
+        debug: true
+        removeConsoleStatements: true
+        transpileAsync: true
+        excludePatterns:
