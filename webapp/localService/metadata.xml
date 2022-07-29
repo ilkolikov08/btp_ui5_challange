@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="https://SAPFSD.SOME.OIL.COMPANY:1111/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='BW')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common" />
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZCDC_EX01_TOP_CDS" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="ZCDC_EX01_TOPType" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="app_id" />
+                </Key>
+                <Property Name="app_id" Type="Edm.String" Nullable="false" MaxLength="3" sap:display-format="UpperCase" />
+                <Property Name="app_name" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" />
+                <Property Name="pillar" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="NonNegative" />
+                <Property Name="it_series" Type="Edm.String" MaxLength="50" sap:display-format="UpperCase" />
+                <Property Name="app_type" Type="Edm.String" MaxLength="4" />
+                <Property Name="assign_group" Type="Edm.String" MaxLength="2" />
+            </EntityType>
+            <EntityContainer Name="ZCDC_EX01_TOP_CDS_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ZCDC_EX01_TOP" EntityType="ZCDC_EX01_TOP_CDS.ZCDC_EX01_TOPType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1" />
+            </EntityContainer>
+            <atom:link rel="self" href="https://SAPFSD.SOME.OIL.COMPANY:1111/sap/opu/odata/sap/ZCDC_EX01_TOP_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom" />
+            <atom:link rel="latest-version" href="https://SAPFSD.SOME.OIL.COMPANY:1111/sap/opu/odata/sap/ZCDC_EX01_TOP_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom" />
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

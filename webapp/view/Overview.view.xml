@@ -1,0 +1,135 @@
+<mvc:View controllerName="sap.btp.ui5challange.controller.Overview"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:tnt="sap.tnt"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:l="sap.ui.layout"
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    xmlns:core="sap.ui.core">
+    <Page id="page" title="{i18n>title}" class="sapUiResponsiveContentPadding">
+        <customHeader>
+            <tnt:ToolHeader id="ToolHeader">
+                <Image id="HedingLogo" src="test-resources/sap/tnt/images/SAP_Logo.png" />
+                <Text id="HeadingText" text="{i18n>appHeading}" wrapping="false" />
+                <ToolbarSpacer id="HeaderSpacer"/>
+	        </tnt:ToolHeader>
+        </customHeader>
+
+        <content>
+            <l:VerticalLayout id="VerticalLayout" width="100%">
+
+                <fb:FilterBar id="FilterBar" search="onSearch" useToolbar="false" showGoOnFB="false" clear="onClear"
+                              showClearOnFB="true" showFilterConfiguration="false" filterChange="onFilterChange">
+                    <fb:filterGroupItems>
+                        <fb:FilterGroupItem id="FirstGroupItem" groupName="__$INTERNAL$" name="A" label="{i18n>appType}" visibleInFilterBar="true">
+                            <fb:control>
+                                    <ComboBox id="AppTypeComboBox" app:filterProperty="app_type" change="onSearch" showClearIcon="true">
+                                    <items>
+                                        <core:Item id="FirstAppTypeItem" key="app_type_1" text="First Type"/>
+                                        <core:Item id="SecondAppTypeItem" key="app_type_2" text="Second Type"/>
+                                    </items>
+                                </ComboBox>
+                            </fb:control>
+                        </fb:FilterGroupItem>
+
+                        <fb:FilterGroupItem id="SecondGroupItem" groupName="__$INTERNAL$" name="B" label="{i18n>pillar}"  visibleInFilterBar="true">
+                            <fb:control>
+                                <ComboBox id="PillarComboBox" app:filterProperty="pillar" change="onSearch" showClearIcon="true">
+                                    <items>
+                                        <core:Item id="FirstPillarItem" key="pillar_10" text="Pillar 10"/>
+                                        <core:Item id="SecondPillarItem" key="pillar_11" text="Pillar 11"/>
+                                    </items>
+                                </ComboBox>
+                            </fb:control>
+                        </fb:FilterGroupItem>
+
+                        <fb:FilterGroupItem id="ThirdGroupItem" groupName="__$INTERNAL$" name="C" label="{i18n>assignGroup}"  visibleInFilterBar="true">
+                            <fb:control>
+                                <Input
+                                    id="InputValueHelp"
+                                    type="Text"
+                                    placeholder="Enter group"
+                                    showValueHelp="true"
+                                    showSuggestion="true"
+                                    app:filterProperty="assign_group"
+                                    suggestionItemSelected="onSearch"
+                                    liveChange="onInputChange"
+                                    valueHelpRequest="handleValueHelp"
+                                    suggestionItems="{/ZCDC_EX01_TOP}">
+                                    <suggestionItems>
+                                        <core:Item id="SuggestionItem" text="{assign_group}" />
+                                    </suggestionItems>
+                                    </Input>
+                            </fb:control>
+                        </fb:FilterGroupItem>
+                    </fb:filterGroupItems>
+                </fb:FilterBar>
+            </l:VerticalLayout>
+
+            <Table id="OverviewTable"
+                inset="false"
+                mode="MultiSelect"
+                multiSelectMode="ClearAll"
+                growing="true"
+                items="{
+                    path: '/ZCDC_EX01_TOP'
+                }">
+
+                <columns>
+                    <Column
+                        id="AppColumn"
+                        width="12em">
+                        <Text id="AppColumnText" text="{i18n>app}" />
+                    </Column>
+                    <Column
+                        id="AppNameColumn"
+                        minScreenWidth="Tablet"
+                        demandPopin="true">
+                        <Text id="AppNameCoulmText" text="{i18n>appName}" />
+                    </Column>
+                    <Column
+                        id="AppDescriptionColumn"
+                        minScreenWidth="Desktop"
+                        demandPopin="true"
+                        hAlign="End">
+                        <Text id="PillarColumnText" text="{i18n>pillar}" />
+                    </Column>
+                    <Column
+                        id="ItSeriesColumn"
+                        minScreenWidth="Desktop"
+                        demandPopin="true"
+                        hAlign="Center">
+                        <Text id="ItSeriesColumnText" text="{i18n>itSeries}" />
+                    </Column>
+                    <Column
+                        id="AppTypeColumn"
+                        hAlign="End">
+                        <Text id="AppTypeColumnText" text="{i18n>appType}" />
+                    </Column>
+                    <Column
+                        id="AssignGroupColumn"
+                        hAlign="End">
+                        <Text id="AssignGroupColumnText" text="{i18n>assignGroup}" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="ColumnListItem" vAlign="Middle">
+                        <cells>
+                            <Text id="AppText" text="{app_id}"/>
+
+                            <Text id="AppNameText" text="{app_name}" />
+
+                            <Text id="PillarText" text="{pillar}" />
+
+                            <Text id="ItSeriesText" text="{it_series}" />
+
+                            <Text id="AppTypeText" text="{app_type}" />
+
+                            <Text id="AssignGroupText" text="{assign_group}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>

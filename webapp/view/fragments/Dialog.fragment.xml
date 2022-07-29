@@ -1,0 +1,23 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog
+		id="MySelectDialog"
+		noDataText="No Products Found"
+		title="Select Group"
+		liveChange="handleSelectDialogSearch"
+        cancel="handleSelectDialogCancel"
+        confirm="handleSelectDialogClose"
+		growingThreshold="30"
+		items="{
+			path: '/ZCDC_EX01_TOP'
+		}">
+		<StandardListItem
+            id="DialogStandardListItem"
+			title="{assign_group}"
+			description="{assign_group}"
+			iconDensityAware="false"
+			iconInset="false"
+			type="Active" />
+	</SelectDialog>
+</core:FragmentDefinition>
