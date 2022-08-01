@@ -21,6 +21,7 @@
 ## ui5_challange
 
 Sample scribble application
+Working example: https://ilkolikov08.github.io/
 
 ### Starting the generated app
 
